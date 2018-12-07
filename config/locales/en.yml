@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+  index:
+    page_title: 'Home'
+  header:
+    title: "Billboards"
