@@ -8,7 +8,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '4f452d4b06e18c001713f5f3424264a4cdfc2307029d9defcab6c74ac1c93337da9ad98a369f0ac39c639fe1ee432f08c028fd33da5779eaac0534c7b6a3a5c0'
+  # config.secret_key = '1633f4d6884a68fa027c790f983826e9b7dc5b2471381840fec284993f5a684a078705eef7f59388548788e944d6530e50b982cc13131c01fd927b244a646779'
   
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -19,8 +19,10 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
-
-  # Configure the class responsible to send e-mails.
+  config.omniauth :facebook, '298504950789098', 'fdf103697311379d50639e12a7ac8b7a'#, :scope => 'email'
+  #require 'omniauth-linkedin' 
+  config.omniauth :linkedin, "78cafczn9382hl", "jzHuYDZLV61tlz67", :scope => 'r_basicprofile r_emailaddress'
+  config.omniauth :twitter, "RanRDPke9UFgTEoWLeCylIHua", "CtQYnVbUes48Sf9I1I87qKVKFyruquyxuDKqMSY5D3hPaGKjT4"#, :scope => 'r_fullprofile, r_emailaddress'
   # config.mailer = 'Devise::Mailer'
 
   # Configure the parent class responsible to send e-mails.
@@ -114,7 +116,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '53cf6ea7293538616d92d61b5d8b6fe08eb86146f1bf9f6ace653c6e610f45f07228a8e604d43865482415f50d0b8e16e3beaca9ddcf62e9f4f4d94690e1c8a0'
+  # config.pepper = '3ee69cba5982547b92863bc57d4df944e55daa0a8a3f9456cacafb23c0149e909f2b3368b7fc756447533ddbabe52367bef69f8269aec6adf893c952d8e95560'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -142,7 +144,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
