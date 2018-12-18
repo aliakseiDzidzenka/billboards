@@ -20,7 +20,9 @@ Devise.setup do |config|
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
   config.omniauth :facebook, '298504950789098', 'fdf103697311379d50639e12a7ac8b7a', :scope => 'email'
-  # Configure the class responsible to send e-mails.
+  #require 'omniauth-linkedin' 
+  config.omniauth :linkedin, "78cafczn9382hl", "jzHuYDZLV61tlz67", :scope => 'r_basicprofile r_emailaddress'
+  config.omniauth :twitter, "RanRDPke9UFgTEoWLeCylIHua", "CtQYnVbUes48Sf9I1I87qKVKFyruquyxuDKqMSY5D3hPaGKjT4", :scope => 'r_fullprofile, r_emailaddress'
   # config.mailer = 'Devise::Mailer'
 
   # Configure the parent class responsible to send e-mails.
