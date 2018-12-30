@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :confirmable, :omniauthable, 
          omniauth_providers: [:linkedin, :facebook, :twitter]
 
-
+  has_one_attached :avatar
 
  def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do | user |
