@@ -1,10 +1,20 @@
 <h1><%= @user.last_name %></h1>
+
 <h2><%= @user.first_name %></h2>
-<%= image_tag @user.avatar %>
-<% if @user.admin? %>
-<p><%= 'Admin' %></p>
+
+<% if @user.avatar_file_name.nil? %>
+	<p><%= 'No avatar' %></p>
+<% else %>
+  <%= image_tag @user.avatar %>
 <% end %>
+
+<% if @user.admin? %>
+  <p><%= 'Admin' %></p>
+
+<% end %>
+
 <p><%= @user.email %></p>
 <p><%= @user.username %></p>
 <p><%= @user.birthdate %></p>
 <p><%= @user.phone %></p>
+<p><%= @user.address %></p>

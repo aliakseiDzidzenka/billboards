@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  
+  geocoded_by :address 
+  after_validation :geocode, if: :address_changed?
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -7,6 +11,7 @@ class User < ApplicationRecord
          omniauth_providers: [:linkedin, :facebook, :twitter]
 
   has_one_attached :avatar
+  
 
  def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do | user |
@@ -33,6 +38,14 @@ class User < ApplicationRecord
 
   def password_required?
     super && provider.blank?
+  end
+
+  def address
+    [house, street, city].compact.join(", ")
+  end
+
+  def address_changed?
+    city_changed? || street_changed? || house_changed?    
   end
 
   # def email_required?
