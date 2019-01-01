@@ -1,0 +1,5 @@
+<div class="col-sm-3 single-post-card" id=<%= billboard_path(billboard.id) %>>
+  <h3><%= post.street %></h3> 
+  <p><%= post.price %></p>
+    <%= link_to "I'm interested", billboard_path(billboard.id), class: 'interested' %>
+</div><!-- col-sm-3 -->
