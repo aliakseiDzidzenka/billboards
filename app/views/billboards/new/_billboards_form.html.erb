@@ -1,0 +1,31 @@
+<%= form_for(@billboard) do |f| %>
+  <%= f.text_field  :city, 
+                    maxlength: 50, 
+                    placeholder: 'City', 
+                    class: 'form-control',
+                    required: true, 
+                    minlength: 5,
+                    maxlength: 50 %>
+  <%= f.text_field  :street, 
+                    maxlength: 50, 
+                    placeholder: 'Street', 
+                    class: 'form-control',
+                    required: true, 
+                    minlength: 3,
+                    maxlength: 50 %>
+  <%= f.text_field  :house, 
+                    maxlength: 20, 
+                    placeholder: 'House', 
+                    class: 'form-control',
+                    required: true, 
+                    minlength: 1,
+                    maxlength: 20 %>
+  <%= f.number_field  :price, 
+                    maxlength: 20, 
+                    placeholder: 'price', 
+                    class: 'form-control',
+                    required: true, 
+                    minlength: 1,
+                    maxlength: 20 %>
+  <%= f.submit "Create a billboard", class: 'form-control' %>
+<% end %>

@@ -8,6 +8,8 @@ class CreateBillboards < ActiveRecord::Migration[5.2]
       
       t.float :price
 
+      t.belongs_to :user, index: true
+      
       t.timestamps null: false
     end
   end

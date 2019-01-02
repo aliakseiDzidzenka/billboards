@@ -1,0 +1,12 @@
+<div id="single-billboard-content" class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="posted-by">Posted by <%= @billboard.user.username %></div>
+      <h3><%= @billboard.city %></h3>
+      <h4><%= @billboard.street %></h4>
+      <h5><%= @billboard.house %></h5>
+
+      <p><%= @billboard.price %></p>
+    </div>
+  </div><!-- row -->
+</div>

@@ -38,8 +38,10 @@ ActiveRecord::Schema.define(version: 2019_01_01_231523) do
     t.string "street", default: "", null: false
     t.string "house", default: "", null: false
     t.float "price"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_billboards_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
