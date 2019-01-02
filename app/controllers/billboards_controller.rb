@@ -12,17 +12,18 @@ class BillboardsController < ApplicationController
 	end
 
 	def new
-		# auth_admin
-		if current_user.admin
+		auth_admin
+		#if current_user.admin
 			@billboard = Billboard.new
-		else
-			redirect_to root_path
-		end
+		#else
+		#	redirect_to root_path
+		#end
 	end
 
 	def create
 
-		if current_user.admin
+	auth_admin
+		#if current_user.admin
 		  @billboard = Billboard.new(billboard_params)
 
 		  if @billboard.save
@@ -30,11 +31,23 @@ class BillboardsController < ApplicationController
 		  else 
 			  redirect_to root_path
 		  end
-		else
-			redirect_to root_path
-		end
+		#else
+		#	redirect_to root_path
+		#end
 
 	end
+
+	def edit
+		@billboard = Billboard.find(params[:id])
+	end
+
+	def update
+		@billboard = Billboard.find(params[:id])
+		@billboard.update(billboard_params)
+		redirect_to billboard_path(@billboard)
+	end
+
+
 
 	private 
 	def billboard_params
