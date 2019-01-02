@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-light">
   <%= link_to t('header.title'), root_path, class: "navbar-brand" %>
   <div class="btn-group" role="group" aria-label="Log in / sign up">
-  	<% if current_user %>
+  	<% if current_user  %>
       <%= link_to image_tag(current_user.avatar, class: "nav-img"), user_path(current_user) %>
   		<%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-md btn-secondary" %>
   	<% else %>
