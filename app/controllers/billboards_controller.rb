@@ -38,7 +38,7 @@ class BillboardsController < ApplicationController
 
 	private 
 	def billboard_params
-		params.require(:billboard).permit(:city, :street, :house, :price).merge(user_id: current_user.id)
+		params.require(:billboard).permit(:city, :street, :house, :price, :image).merge(user_id: current_user.id)
 		#user_id: current_user.id
 	end
 
