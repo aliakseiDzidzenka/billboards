@@ -1,3 +1,10 @@
 <h1>Billboards view</h1>
 
-<%= render @billboards %>
+
+<% @billboards.each do |billboard| %>
+<div class="col-sm-3 single-post-card" id=<%= billboard_path(billboard.id) %>>
+  <h3><%= billboard.street %></h3> 
+  <p><%= billboard.price %></p>
+    <%= link_to "I'm interested", billboard_path(billboard.id), class: 'interested' %>
+</div><!-- col-sm-3 -->
+<% end %>
