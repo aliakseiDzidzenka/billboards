@@ -15,6 +15,8 @@ class BillboardsController < ApplicationController
 		auth_admin
 		#if current_user.admin
 			@billboard = Billboard.new
+		#session[:billboard_params] ||= {}
+
 		#else
 		#	redirect_to root_path
 		#end
@@ -34,6 +36,8 @@ class BillboardsController < ApplicationController
 		#else
 		#	redirect_to root_path
 		#end
+
+
 
 	end
 

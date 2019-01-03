@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
 	before_action :authenticate_user!, :except => [:show]
+	
 
 	def index
 		if current_user.admin? == true
@@ -13,5 +14,6 @@ class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
 	end
+
 
 end
