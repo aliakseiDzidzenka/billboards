@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :billboards  
+  has_many :billboards
+  before_create :image_nil  
   geocoded_by :address 
   after_validation :geocode, if: :address_changed?
 
@@ -47,7 +48,11 @@ class User < ApplicationRecord
   def address_changed?
     city_changed? || street_changed? || house_changed?    
   end
-
+  def image_nil
+     #if !self.avatar?
+         avatar.attach(io: File.open('app/assets/images/no.png'), filename: 'no.png', content_type: 'image/png')
+     #end
+  end
   # def email_required?
   #   super && provider.blank?
   # end

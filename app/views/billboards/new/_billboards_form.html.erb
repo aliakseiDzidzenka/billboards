@@ -1,4 +1,89 @@
+
+<script>
+</script>
+
+
+<% provide :head_tags do %>
+    <meta name='turbolinks-visit-control' content='reload'>
+    <script>
+      function initMap2() {
+
+    var lat = document.getElementsByClassName('billboard_latitude')[0].value;
+    var lng = document.getElementsByClassName('billboard_longitude')[0].value;
+    
+    // if not defined create default position
+    if (!lat || !lng){
+        lat=53.9;
+        lng=27.559;
+        document.getElementsByClassName('billboard_latitude')[0].value = lat;
+        document.getElementsByClassName('billboard_longitude')[0].value = lng;
+    }
+
+    var myCoords = new google.maps.LatLng(lat, lng);
+
+    var mapOptions = {
+    center: myCoords,
+    zoom: 14
+    };
+
+    var map = new google.maps.Map(document.getElementById('map2'), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myCoords,
+        animation: google.maps.Animation.DROP,
+        map: map,
+        draggable: true
+    });
+
+    // refresh marker position and recenter map on marker
+    function refreshMarker(){
+        var lat = document.getElementsByClassName('billboard_latitude')[0].value;
+        var lng = document.getElementsByClassName('billboard_longitude')[0].value;
+        var myCoords = new google.maps.LatLng(lat, lng);
+        marker.setPosition(myCoords);
+        map.setCenter(marker.getPosition());   
+    }
+
+    // when input values change call refreshMarker
+    document.getElementsByClassName('billboard_latitude')[0].onchange = refreshMarker;
+    document.getElementsByClassName('billboard_longitude')[0].onchange = refreshMarker;
+
+    // when marker is dragged update input values
+    marker.addListener('drag', function() {
+        latlng = marker.getPosition();
+        newlat=(Math.round(latlng.lat()*1000000))/1000000;
+        newlng=(Math.round(latlng.lng()*1000000))/1000000;
+        document.getElementsByClassName('billboard_latitude')[0].value = newlat;
+        document.getElementsByClassName('billboard_longitude')[0].value = newlng;
+    });
+
+    // When drag ends, center (pan) the map on the marker position
+    marker.addListener('dragend', function() {
+        map.panTo(marker.getPosition());   
+    });
+
+}
+
+        document.addEventListener("DOMContentLoaded", initMap2);
+    </script>
+<% end %>
+
+
 <%= form_for(@billboard) do |f| %>
+<%= f.text_field  :latitude, 
+                    maxlength: 50, 
+                    placeholder: 'Lat', 
+                    class: 'form-control billboard_latitude',
+                    required: false, 
+                    minlength: 1,
+                    maxlength: 50 %>
+<%= f.text_field  :longitude, 
+                    maxlength: 50, 
+                    placeholder: 'Long', 
+                    class: 'form-control billboard_longitude',
+                    required: false, 
+                    minlength: 1,
+                    maxlength: 50 %>
   <%= f.text_field  :city, 
                     maxlength: 50, 
                     placeholder: 'City', 
@@ -29,5 +114,10 @@
                     maxlength: 20 %>
   <%= f.label :image %>
   <%= f.file_field :image %>
+
+  <p>
+    <div id="map2"></div>
+  </p>
+
   <%= f.submit "Submit", class: 'form-control' %>
 <% end %>
