@@ -8,6 +8,8 @@ class BillboardsController < ApplicationController
 
 	def show
 		@billboard = Billboard.find(params[:id])
+		@request = Request.new
+		@requests = @billboard.requests
 		
 	end
 

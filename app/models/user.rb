@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :billboards
+  has_many :requests
   before_create :image_nil  
   geocoded_by :address 
   after_validation :geocode, if: :address_changed?

@@ -1,5 +1,5 @@
 class Billboard < ApplicationRecord
-
+  has_many :requests
 	belongs_to :user
 	has_one_attached :image
   before_create :image_nil 
