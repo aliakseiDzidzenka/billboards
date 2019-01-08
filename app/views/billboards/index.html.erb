@@ -17,7 +17,6 @@
     	var center_lng = 0;
     	var count = 0
     var myCoords = new google.maps.LatLng(53.9, 27.559);
-    //var newCoord = new google.maps.LatLng(l, g);
     var mapOptions = {
     center: myCoords,
     zoom: 14
@@ -42,16 +41,20 @@
     </script>
 <% end %>
 
-<h1>Billboards view</h1>
-
-
+<h1><%= t('billboards.index.results') %></h1>
 
 <div id="map"></div>
+<% if BillboardsController.free %>
+  <p><%= button_to t('index.show_free'), button_path, method: :get %></p>
+<% else %>
+  <p><%= button_to t('index.show_all'), button_path, method: :get %></p>
+<% end %>
+
 <% @billboards.each do |billboard| %>
 <div class="col-sm-3 single-post-card" id=<%= billboard_path(billboard.id) %>>
   <h3><%= billboard.street %></h3> 
   <p><%= billboard.price %></p>
-  <%= link_to "I'm interested", billboard_path(billboard.id), class: 'interested' %>
+  <%= link_to t('billboards.more'), billboard_path(billboard.id), class: 'interested' %>
   <% if current_user && current_user.admin? %>
     <%= link_to "edit", edit_billboard_path(billboard.id) %>
   <% end %>

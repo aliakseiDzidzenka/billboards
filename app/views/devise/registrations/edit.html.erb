@@ -58,6 +58,9 @@
     <%= f.label :house %><br />
     <%= f.text_field :house, autofocus: true, autocomplete: "house" %>
   </div>
+  <div class="field">
+      <%= f.select(:locale, User.locales.keys.map {|l| [l.titleize, l]}) %>
+  </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>

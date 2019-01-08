@@ -1,9 +1,25 @@
 class BillboardsController < ApplicationController
 	
+  @@show_free = false
+
+
+
 	before_action :authenticate_user!, :except => [:show, :index]
 
+	
 	def index
-		@billboards = Billboard.all
+		#@billboards = Billboard.all
+		if @@show_free == true
+			@billboards = Billboard.all.where('id NOT IN (?)', Rent.where(:is_active? == true).where('start <= ?', DateTime.now.beginning_of_day).select(:board_id))
+		else
+		  @billboards = Billboard.all
+		end
+	end
+
+	def free
+		redirect_to billboards_path
+	  @billboards = Billboard.all.where('id NOT IN (?)', Rent.where(:is_active? == true).where('start <= ?', DateTime.now.beginning_of_day).select(:board_id))
+
 	end
 
 	def show
@@ -53,7 +69,10 @@ class BillboardsController < ApplicationController
 		redirect_to billboard_path(@billboard)
 	end
 
-
+def button
+		@@show_free = !@@show_free
+    redirect_to billboards_path
+  end
 
 	private 
 	def billboard_params
@@ -63,6 +82,10 @@ class BillboardsController < ApplicationController
 
 	def auth_admin
 		redirect_to root_path if current_user.admin == false
+	end
+
+	def self.free
+		@@show_free
 	end
 
 end

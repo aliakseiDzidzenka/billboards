@@ -72,52 +72,52 @@
 <%= form_for(@billboard) do |f| %>
 <%= f.text_field  :latitude, 
                     maxlength: 50, 
-                    placeholder: 'Lat', 
+                    placeholder: t('billboards.form.latitude'), 
                     class: 'form-control billboard_latitude',
                     required: false, 
                     minlength: 1,
                     maxlength: 50 %>
 <%= f.text_field  :longitude, 
                     maxlength: 50, 
-                    placeholder: 'Long', 
+                    placeholder: t('billboards.form.longitude'), 
                     class: 'form-control billboard_longitude',
                     required: false, 
                     minlength: 1,
                     maxlength: 50 %>
   <%= f.text_field  :city, 
                     maxlength: 50, 
-                    placeholder: 'City', 
+                    placeholder: t('billboards.form.city'), 
                     class: 'form-control',
                     required: true, 
                     minlength: 5,
                     maxlength: 50 %>
   <%= f.text_field  :street, 
                     maxlength: 50, 
-                    placeholder: 'Street', 
+                    placeholder: t('billboards.form.street'), 
                     class: 'form-control',
                     required: true, 
                     minlength: 3,
                     maxlength: 50 %>
   <%= f.text_field  :house, 
                     maxlength: 20, 
-                    placeholder: 'House', 
+                    placeholder: t('billboards.form.house'), 
                     class: 'form-control',
                     required: true, 
                     minlength: 1,
                     maxlength: 20 %>
   <%= f.number_field  :price, 
                     maxlength: 20, 
-                    placeholder: 'price', 
+                    placeholder: t('billboards.form.price'), 
                     class: 'form-control',
                     required: true, 
                     minlength: 1,
                     maxlength: 20 %>
-  <%= f.label :image %>
+  <%= f.label t('billboards.form.image') %>
   <%= f.file_field :image %>
 
   <p>
     <div id="map2"></div>
   </p>
 
-  <%= f.submit "Submit", class: 'form-control' %>
+  <%= f.submit t('form.submit'), class: 'form-control' %>
 <% end %>
