@@ -1,0 +1,13 @@
+<% @requests.each do |request| %>
+	
+	<h3><%= request.brand %></h3>
+	<p><%= request.description %></p>
+	<p><%= request.ad_type %></p>
+	<p><%= request.start %></p>
+	<p><%= request.end %></p>
+	<p><%= request.approved? %></p>
+	<p><%= request.user_id %></p>
+	<p><%= request.billboard_id %></p>
+
+
+<% end %>

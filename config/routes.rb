@@ -17,5 +17,14 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :users
-  resources :billboards
+  resources :billboards     
+  resources :billboards do
+    post 'requests', to: 'requests#create'
+  end
+  resources :requests
+  resources :requests do
+    post 'rents', to: 'rents#create'
+  end
+  resources :rents
+  
 end

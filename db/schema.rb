@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_02_133701) do
+ActiveRecord::Schema.define(version: 2019_01_06_223158) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -44,6 +44,36 @@ ActiveRecord::Schema.define(version: 2019_01_02_133701) do
     t.float "latitude"
     t.float "longitude"
     t.index ["user_id"], name: "index_billboards_on_user_id"
+  end
+
+  create_table "rents", force: :cascade do |t|
+    t.string "ad_type"
+    t.string "brand"
+    t.string "description"
+    t.datetime "start"
+    t.datetime "end"
+    t.boolean "is_active?", default: true
+    t.integer "board_id"
+    t.integer "user_id"
+    t.integer "request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_id"], name: "index_rents_on_request_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.string "brand"
+    t.string "description"
+    t.boolean "approved?", default: false
+    t.integer "user_id"
+    t.integer "billboard_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "ad_type"
+    t.index ["billboard_id"], name: "index_requests_on_billboard_id"
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
