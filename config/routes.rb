@@ -9,12 +9,13 @@ Rails.application.routes.draw do
 	#get '/auth/:provider/callback', to: 'sessions#create'
   
   get 'welcome/index'
+  get '/button', to: 'billboards#button', as: 'button'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   #resources :users
   #get  '/signup',  to: 'users#new'
 
-  root 'welcome#index'
+  root 'billboards#index'
 
   resources :users
   resources :billboards     
@@ -26,5 +27,8 @@ Rails.application.routes.draw do
     post 'rents', to: 'rents#create'
   end
   resources :rents
+
+
+
   
 end

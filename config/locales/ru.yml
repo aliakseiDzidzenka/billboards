@@ -1,0 +1,12 @@
+ru:
+  form:
+    submit: "отправить"
+  billboards:
+    form:
+      latitude: "широта"
+      longitude: "долгота"
+      city: "город"
+      street: "улица"
+      house: "дом"
+      price: "цена"
+      image: "изображение"
