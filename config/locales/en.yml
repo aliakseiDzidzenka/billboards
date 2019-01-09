@@ -61,4 +61,6 @@ en:
       house: "house"
       price: "price"
       image: "image"
+    show:
+      price: "Price"
 

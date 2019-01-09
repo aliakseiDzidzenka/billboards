@@ -12,8 +12,8 @@
 	  <p><%= request.user_id %></p>
 	  <p><%= request.billboard_id %></p>
 
-    <p><%= link_to t('request.show'), edit_request_path(request.id), class: "btn btn-md btn-warning"  %></p>
-	  <% unless request.approved?.nil? %>
+    <p><%= link_to t('request.show'), request_path(request.id), class: "btn btn-md btn-warning"  %></p>
+	  <% if request.approved?.nil? %>
 	  <p><%= link_to t('request.approve'), edit_request_path(request.id), class: "btn btn-md btn-success"  %></p>
 	  <% end %>
   <% end %>
