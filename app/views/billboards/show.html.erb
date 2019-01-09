@@ -33,19 +33,27 @@
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
       <div class="posted-by">Posted by <%= @billboard.user.username %></div>
-      <%= image_tag @billboard.image %>
-      <p>
-        <div id="map"></div>
-      </p>
-
-
-      <h3><%= @billboard.city %></h3>
-      <h4><%= @billboard.street %></h4>
-      <h5><%= @billboard.house %></h5>
-
-      <p><%= @billboard.price %></p>
     </div>
-  </div><!-- row -->
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+        <div id="map" style="max-width: 80%"></div>
+    </div>
+    <div class="col-md-6">
+      <%= image_tag @billboard.image, class: "img-responsive img-show" %>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table table-striped show-table">
+      <th><%= @billboard.city.to_s + ' ' + @billboard.street.to_s + ' ' + @billboard.house.to_s %></th>
+      <th></th>
+      <tr>
+        <td><%= t('billboards.show.price') %></td>
+        <td><%= @billboard.price %></td>
+      </tr>
+    </table>
+  </div>
+</div><!-- row -->
   <% if current_user %>
     <%= render '/requests/requests_form' %>
   <% else %>

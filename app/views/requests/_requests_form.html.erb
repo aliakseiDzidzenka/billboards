@@ -1,4 +1,5 @@
-<%= form_with model: [@billboard, @request] do |f| %>
+<div class="form-group">
+  <%= form_with model: [@billboard, @request] do |f| %>
 <%= f.text_field  :brand, 
                     maxlength: 50, 
                     class: 'form-control',
@@ -9,7 +10,7 @@
                   cols: 100, 
                   rows: 10,
                   required: true %>
-<%= f.select(:ad_type, Request.ad_types.keys.map {|t| [t.titleize, t]}) %>
+<%= f.select(:ad_type, Request.ad_types.keys.map {|t| [t.titleize, t]}, class: "form-control" ) %>
 <%= f.date_field  :start,  
                     class: 'form-control',
                     required: true %>
@@ -18,3 +19,5 @@
                     required: true %>
 <%= f.submit "Create" %>
 <% end %>
+
+</div>

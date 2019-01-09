@@ -39,7 +39,7 @@
         map: map
       });
     <% end %>
-    
+
     myCoords = new google.maps.LatLng(average_lat/count, average_lng/count);
     map.setCenter(myCoords);
 }
@@ -47,20 +47,38 @@
 <% end %>
 
 <h1><%= t('billboards.index.results') %></h1>
-<div id="map"></div>
-<% if session[:show_free] === false %>
-  <p><%= button_to t('index.show_free'), change_free_path, method: :get %></p>
-<% else %>
-  <p><%= button_to t('index.show_all'), change_free_path, method: :get %></p>
-<% end %>
-
-<% @billboards.each do |billboard| %>
-<div class="col-sm-3 single-post-card" id=<%= billboard_path(billboard.id) %>>
-  <h3><%= billboard.street %></h3> 
-  <p><%= billboard.price %></p>
-  <%= link_to t('billboards.more'), billboard_path(billboard.id), class: 'interested' %>
-  <% if current_user && current_user.admin? %>
-    <%= link_to "edit", edit_billboard_path(billboard.id) %>
-  <% end %>
-</div><!-- col-sm-3 -->
-<% end %>
+<div class="container">
+  <div class="row">
+    <div id="map" class="col-sm-12"></div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+    <% if session[:show_free] === false %>
+      <p><%= button_to t('index.show_free'), change_free_path, method: :get, class: "btn btn_default btn-block index" %></p>
+    <% else %>
+      <p><%= button_to t('index.show_all'), change_free_path, method: :get, class: "btn btn_default btn-block index" %></p>
+    <% end %>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-lg-4">
+        <%= number_field_tag :s, nil, in: 0..25, class: 'form-control', id: 'free-from' %>
+        
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <% @billboards.each do |billboard| %>
+        <div class="col-sm-4 float-left card" id=<%= billboard_path(billboard.id) %> style="padding: 1em;">
+          <div class="card-header"><%= billboard.street %></div>
+          <p class="text-danger"><%= billboard.price %></p>
+          <%= link_to t('billboards.more'), billboard_path(billboard.id), class: "btn btn_info" %>
+          <% if current_user && current_user.admin? %>
+            <%= link_to "edit", edit_billboard_path(billboard.id) %>
+          <% end %>
+        </div><!-- col-sm-4 -->
+      <% end %>
+    </div>
+  </div>
+  </div>
+</div>
