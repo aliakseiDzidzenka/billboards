@@ -3,6 +3,7 @@
     <script>
 
 
+
     document.addEventListener("DOMContentLoaded", function(){
     	initMap();
     });
@@ -13,21 +14,24 @@
     function initMap() {
     	var marker;
     	var newCoord;
-    	var center_lat = 0;
-    	var center_lng = 0;
-    	var count = 0
+    	var average_lat = 0;
+    	var average_lng = 0;
+    	var count = <%= @billboards.length %>;
     var myCoords = new google.maps.LatLng(53.9, 27.559);
     var mapOptions = {
     center: myCoords,
     zoom: 14
     };
 
+    var billboards = <%= @billboards.to_json.html_safe %>;
+
     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
+
+
     <% @billboards.each do |billboard| %>
-    	center_lat += <%= billboard.latitude.to_json %>;
-    	center_lng += <%= billboard.longitude.to_json %>;
-    	count++;
+    	average_lat += <%= billboard.latitude.to_json %>;
+    	average_lng += <%= billboard.longitude.to_json %>;
     	newCoord = new google.maps.LatLng(<%= billboard.latitude.to_json %>, <%= billboard.longitude.to_json %>);
 
     	marker = new google.maps.Marker({
@@ -35,19 +39,19 @@
         map: map
       });
     <% end %>
-    myCoords = new google.maps.LatLng(center_lat/count, center_lng/count);
+    
+    myCoords = new google.maps.LatLng(average_lat/count, average_lng/count);
     map.setCenter(myCoords);
 }
     </script>
 <% end %>
 
 <h1><%= t('billboards.index.results') %></h1>
-
 <div id="map"></div>
-<% if BillboardsController.free %>
-  <p><%= button_to t('index.show_free'), button_path, method: :get %></p>
+<% if session[:show_free] === false %>
+  <p><%= button_to t('index.show_free'), change_free_path, method: :get %></p>
 <% else %>
-  <p><%= button_to t('index.show_all'), button_path, method: :get %></p>
+  <p><%= button_to t('index.show_all'), change_free_path, method: :get %></p>
 <% end %>
 
 <% @billboards.each do |billboard| %>

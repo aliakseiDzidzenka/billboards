@@ -1,13 +1,23 @@
-<% @requests.each do |request| %>
+
+<% if @requests %>
+	<% @requests = @requests.reverse %>
+  <% @requests.each do |request| %>
 	
-	<h3><%= request.brand %></h3>
-	<p><%= request.description %></p>
-	<p><%= request.ad_type %></p>
-	<p><%= request.start %></p>
-	<p><%= request.end %></p>
-	<p><%= request.approved? %></p>
-	<p><%= request.user_id %></p>
-	<p><%= request.billboard_id %></p>
+	  <h3><%= request.brand %></h3>
+	  <p><%= request.description %></p>
+	  <p><%= request.ad_type %></p>
+	  <p><%= request.start %></p>
+	  <p><%= request.end %></p>
+	  <p><%= request.approved? %></p>
+	  <p><%= request.user_id %></p>
+	  <p><%= request.billboard_id %></p>
 
+    <p><%= link_to t('request.show'), edit_request_path(request.id), class: "btn btn-md btn-warning"  %></p>
+	  <% unless request.approved?.nil? %>
+	  <p><%= link_to t('request.approve'), edit_request_path(request.id), class: "btn btn-md btn-success"  %></p>
+	  <% end %>
+  <% end %>
+<% else %>
 
+  <%= 'No unseen requests' %>
 <% end %>

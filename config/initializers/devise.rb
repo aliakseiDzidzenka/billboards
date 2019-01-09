@@ -9,7 +9,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '1633f4d6884a68fa027c790f983826e9b7dc5b2471381840fec284993f5a684a078705eef7f59388548788e944d6530e50b982cc13131c01fd927b244a646779'
-  
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -19,10 +19,10 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
-  config.omniauth :facebook, '298504950789098', 'fdf103697311379d50639e12a7ac8b7a'#, :scope => 'email'
-  #require 'omniauth-linkedin' 
-  config.omniauth :linkedin, "78cafczn9382hl", "jzHuYDZLV61tlz67", :scope => 'r_basicprofile r_emailaddress'
-  config.omniauth :twitter, "RanRDPke9UFgTEoWLeCylIHua", "CtQYnVbUes48Sf9I1I87qKVKFyruquyxuDKqMSY5D3hPaGKjT4"#, :scope => 'r_fullprofile, r_emailaddress'
+  config.omniauth :facebook, '298504950789098', 'fdf103697311379d50639e12a7ac8b7a' # , :scope => 'email'
+  # require 'omniauth-linkedin'
+  config.omniauth :linkedin, '78cafczn9382hl', 'jzHuYDZLV61tlz67', scope: 'r_basicprofile r_emailaddress'
+  config.omniauth :twitter, 'RanRDPke9UFgTEoWLeCylIHua', 'CtQYnVbUes48Sf9I1I87qKVKFyruquyxuDKqMSY5D3hPaGKjT4' # , :scope => 'r_fullprofile, r_emailaddress'
   # config.mailer = 'Devise::Mailer'
 
   # Configure the parent class responsible to send e-mails.

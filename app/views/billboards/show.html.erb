@@ -24,7 +24,7 @@
     });
 
 }
-    </script>
+    </script> 
 <% end %>
 
 
@@ -46,7 +46,10 @@
       <p><%= @billboard.price %></p>
     </div>
   </div><!-- row -->
-
-  <%= render '/requests/requests_form' %>
-  <%= render '/requests/show_div' %>
+  <% if current_user %>
+    <%= render '/requests/requests_form' %>
+  <% else %>
+    <%= link_to t('request.create.login'), new_user_registration_path %>
+  <% end %>
+ 
 </div>

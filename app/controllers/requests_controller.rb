@@ -1,90 +1,108 @@
+# frozen_string_literal: true
+
 class RequestsController < ApplicationController
-	before_action :authenticate_user!
-	before_action :set_billboard, :except => [:show, :index, :edit]
+  before_action :authenticate_user!
+  before_action :set_billboard, except: %i[show index edit change_seen]
 
-	def index
-		@requests = Request.all
-	end
+  #@@show_unseen = true
+  def index
+		# if session[:show_free] === nil
+  # 		session[:show_free] = false
+  # 	end
+  session[:show_unseen] |= false
 
-	def show
-		@request = Request.find(params[:id])
-		# if @request.rent == nil
-		#   @rent = Rent.new
-		#   @rent.user_id = @request.user_id
-		
-		#   @request.rent = @rent
-		# end
-	end
+    if session[:show_unseen]
+      @requests = Request.all.where(approved?: nil)
+    else
+      @requests = Request.all
+    end
+  end
 
-	def new
-		@request = Request.new
+  def show
+    @request = Request.find(params[:id])
+    # if @request.rent == nil
+    #   @rent = Rent.new
+    #   @rent.user_id = @request.user_id
 
-	end
+    #   @request.rent = @rent
+    # end
+  end
 
-	def create
+  def new
+    @request = Request.new
+  end
 
-		# @request = Request.new(request_params)
+  def create
+    # @request = Request.new(request_params)
 
-		# if @request.save
-		#   redirect_to request_path(@request)
-		# else 
-	 #    redirect_to root_path
-		# end
+    # if @request.save
+    #   redirect_to request_path(@request)
+    # else
+    #    redirect_to root_path
+    # end
 
-  @request = @billboard.requests.new(request_params)
-  @request.user = current_user
-  @request.rent = Rent.new
-  @request.save
+    @request = @billboard.requests.new(request_params)
+    @request.user = current_user
+    @request.rent = Rent.new
+    @request.save
+    redirect_to root_path
+  end
 
-	end
+  def edit
+    @request = Request.find(params[:id])
+    @request.rent = Rent.new if @request.rent.nil?
+    @request.rent.ad_type = @request.ad_type
+    @request.rent.brand = @request.brand
+    @request.rent.description = @request.description
+    @request.rent.start = @request.start
+    @request.rent.end = @request.end
+    @request.rent.user_id = @request.user_id
+    @request.rent.board_id = @request.billboard_id
 
-	def edit
-		@request = Request.find(params[:id])
-		if @request.rent == nil
-			@request.rent = Rent.new
-		end
-			@request.rent.ad_type = @request.ad_type
-			@request.rent.brand = @request.brand
-			@request.rent.description = @request.description
-			@request.rent.start = @request.start
-			@request.rent.end = @request.end
-			@request.rent.user_id = @request.user_id
-			@request.rent.board_id = @request.billboard_id
-			@request.update(approved?: true)
-			@request.rent.save
-			@request.save
-	end
+    @similar_requests = Request.all.where('billboard_id = ?', @request.billboard_id).
+      where('((start BETWEEN ? and ?) OR (end BETWEEN ? and ?)) OR ((? BETWEEN start AND end) OR (? BETWEEN start AND end))', @request.start, @request.end, @request.start, @request.end, @request.start, @request.end)
+    @similar_requests.each do |s_r|
+      s_r.update(approved?: false)
+      s_r.save
+    end
 
-	def update
-		# @request = Request.find(params[:id])
+    @request.update(approved?: true)
+    @request.rent.save
+    @request.save
+  end
 
-		# @request.save
-		# @redirect_to request.path(@request)
-		# @billboard = Billboard.find(params[:id])
-		# @billboard.update(billboard_params)
-		# redirect_to billboard_path(@billboard)
-	end
+  def update
+    # @request = Request.find(params[:id])
 
+    # @request.save
+    # @redirect_to request.path(@request)
+    # @billboard = Billboard.find(params[:id])
+    # @billboard.update(billboard_params)
+    # redirect_to billboard_path(@billboard)
+  end
 
+  def change_seen
+    session[:show_unseen] = !session[:show_unseen]
+    redirect_to requests_path
+  end
 
-	private 
+  private
 
-	def request_params
-		params.require(:request).permit(:brand, :description, :start, :end, :ad_type, :billboard_id)
-		#user_id: current_user.id
-	end
+  def request_params
+    params.require(:request).permit(:brand, :description, :start, :end, :ad_type, :billboard_id)
+    # user_id: current_user.id
+  end
 
-	def set_billboard
-		@billboard = Billboard.find(params[:billboard_id])
-		
-	end
+  def set_billboard
+    @billboard = Billboard.find(params[:billboard_id])
+  end
 
-	def auth_admin
-		redirect_to root_path if current_user.admin == false
-	end
+  def auth_admin
+    redirect_to root_path if current_user.admin == false
+  end
 
-	def set_rent_from_request(req)
-		req.is_approved? == true
-		
-	end
+  def set_rent_from_request(req)
+    req.is_approved? == true
+  end
+
 end

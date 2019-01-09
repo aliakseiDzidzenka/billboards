@@ -30,6 +30,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  nav:
+    requests: "Requests"
+  request:
+    create:
+      login: "You need to sign up / sign in to make a request for rent"
+    approve: "Approve"
+    show: "Show more"
   index:
     page_title: "Billboards"
     show_all: "Show all"

@@ -6,7 +6,7 @@
 <% provide :head_tags do %>
     <meta name='turbolinks-visit-control' content='reload'>
     <script>
-      function initMap2() {
+      function initMap() {
 
     var lat = document.getElementsByClassName('billboard_latitude')[0].value;
     var lng = document.getElementsByClassName('billboard_longitude')[0].value;
@@ -64,7 +64,7 @@
 
 }
 
-        document.addEventListener("DOMContentLoaded", initMap2);
+        document.addEventListener("DOMContentLoaded", initMap);
     </script>
 <% end %>
 
