@@ -9,6 +9,12 @@ class CommentsController < ApplicationController
   	@comment.save
   end
 
+  def destroy
+  	@comment = @billboard.comments.find(params[:id])
+  	@comment.destroy
+  	
+  end
+
   private
   def comment_params
   	params.require(:comment).permit(:body, :billboard_id)

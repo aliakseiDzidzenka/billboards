@@ -28,7 +28,8 @@ Rails.application.routes.draw do
   resources :billboards
   resources :billboards do
     post 'requests', to: 'requests#create'
-    post 'comments', to: 'comments#create'
+    #post 'comments', to: 'comments#create'
+    resources :comments, only: [:create, :destroy]
   end
   resources :requests
   resources :requests do

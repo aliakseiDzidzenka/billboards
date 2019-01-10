@@ -1,2 +1,10 @@
-        <%= comment.created_at %> --- <%= comment.user.email %> : <%= comment.body %>
-        <br />
+<div id="comment-<%= comment.id %>">
+  <%= comment.created_at %> --- <%= comment.user.email %>
+  <% if current_user && (current_user == comment.user || current_user.admin) %>
+    <%= link_to t('comment.delete'), billboard_comment_path(@billboard, comment), 
+        method: :delete, remote: true, style: 'floar: right' %>
+    <hr />
+  <% end %>
+  <%= comment.body %>
+  <br />
+</div>
