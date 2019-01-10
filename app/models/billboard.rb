@@ -2,6 +2,7 @@
 
 class Billboard < ApplicationRecord
   has_many :requests
+  has_many :comments, dependent: :destroy
   belongs_to :user
   has_one_attached :image
   before_create :set_default_avatar

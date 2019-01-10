@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'comments/create'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   devise_scope :user do
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
   resources :billboards
   resources :billboards do
     post 'requests', to: 'requests#create'
+    post 'comments', to: 'comments#create'
   end
   resources :requests
   resources :requests do

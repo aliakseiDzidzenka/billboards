@@ -25,8 +25,12 @@ class BillboardsController < ApplicationController
 
   def show
     @billboard = Billboard.find(params[:id])
+
     @request = Request.new
     @requests = @billboard.requests
+
+    @comment = Comment.new
+    @comments = @billboard.comments.order('created_at DESC')
   end
 
   def new
