@@ -41,6 +41,7 @@ en:
     page_title: "Billboards"
     show_all: "Show all"
     show_free: "Show free"
+    show_booked: "Show booked"
   header:
     title: "Billboards"
   form:

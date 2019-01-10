@@ -10,8 +10,12 @@ Rails.application.routes.draw do
   # get '/auth/:provider/callback', to: 'sessions#create'
 
   get 'welcome/index'
+
   get '/change_free', to: 'billboards#change_free', as: 'change_free'
+  get '/show_booked', to: 'billboards#show_booked', as: 'show_booked'
+  #post '/show_booked', to: 'billboards#show_booked', as: 'show_booked'
   get '/change_seen', to: 'requests#change_seen', as: 'change_seen'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # resources :users
