@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   root 'billboards#index'
 
-  resources :users
+  resources :users, only: [:index, :show]
   resources :billboards
   resources :billboards do
     post 'requests', to: 'requests#create'

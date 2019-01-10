@@ -79,7 +79,7 @@
           <p class="text-danger"><%= billboard.price %></p>
           <%= link_to t('billboards.more'), billboard_path(billboard.id), class: "btn btn_info" %>
           <% if current_user && current_user.admin? %>
-            <%= link_to "edit", edit_billboard_path(billboard.id) %>
+            <%= link_to t('billboards.edit.title'), edit_billboard_path(billboard.id) %>
           <% end %>
         </div><!-- col-sm-4 -->
       <% end %>

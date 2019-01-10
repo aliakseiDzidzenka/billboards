@@ -1,12 +1,42 @@
 ru:
+  user:
+    edit: "Редактировать профиль"
+    sign_out: "Выйти"
+    sign_up: "Зарегистрироваться"
+    sing_in: "Войти"
+  comment:
+    delete: "Удалить"
+  nav:
+    requests: "Заявки"
+  request:
+    create:
+      login: "Вам нужно зарегистрироваться / войти, чтобы оставить заявку или коментарий"
+    approve: "Подтвердить"
+    show: "Подробнее"
+  index:
+    page_title: "Билборды"
+    show_all: "Показать все"
+    show_free: "Только свободные"
+    show_booked: "Занятые (но скоро освободятся)"
+  header:
+    title: "Билборды"
   form:
     submit: "отправить"
   billboards:
+    index:
+      results: "Результаты поиска"
+    new:
+      title: "Cоздать новый билборд"
+    edit:
+      title: "Редактировать билборд"
+    more: "Подробнее"
     form:
-      latitude: "широта"
-      longitude: "долгота"
-      city: "город"
-      street: "улица"
-      house: "дом"
-      price: "цена"
-      image: "изображение"
+      latitude: "Широта"
+      longitude: "Долгота"
+      city: "Город"
+      street: "Улица"
+      house: "Дом"
+      price: "Цена"
+      image: "Аватар"
+    show:
+      price: "Цена"

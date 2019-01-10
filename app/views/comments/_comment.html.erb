@@ -1,4 +1,4 @@
-<div id="comment-<%= comment.id %>">
+<div id="comment-<%= comment.id %>" class="col-sm-12">
   <%= comment.created_at %> --- <%= comment.user.email %>
   <% if current_user && (current_user == comment.user || current_user.admin) %>
     <%= link_to t('comment.delete'), billboard_comment_path(@billboard, comment), 

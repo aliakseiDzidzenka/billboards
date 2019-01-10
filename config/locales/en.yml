@@ -30,6 +30,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  user:
+    edit: "Edit profile"
+    sign_out: "Sign out"
+    sign_up: "Sign up"
+    sing_in: "Sign in"
   comment:
     delete: "Delete"
   nav:
