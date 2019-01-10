@@ -4,18 +4,18 @@ class RequestsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_billboard, except: %i[show index edit change_seen]
 
-  #@@show_unseen = true
+  # @@show_unseen = true
   def index
-		# if session[:show_free] === nil
-  # 		session[:show_free] = false
-  # 	end
-  session[:show_unseen] |= false
+    # if session[:show_free] === nil
+    #     session[:show_free] = false
+    #   end
+    session[:show_unseen] |= false
 
-    if session[:show_unseen]
-      @requests = Request.all.where(approved?: nil)
-    else
-      @requests = Request.all
-    end
+    @requests = if session[:show_unseen]
+                  Request.all.where(approved?: nil)
+                else
+                  Request.all
+                end
   end
 
   def show
@@ -61,8 +61,8 @@ class RequestsController < ApplicationController
     @request.rent.user_id = @request.user_id
     @request.rent.board_id = @request.billboard_id
 
-    @similar_requests = Request.all.where('billboard_id = ?', @request.billboard_id).
-      where('((start BETWEEN ? and ?) OR (end BETWEEN ? and ?)) OR ((? BETWEEN start AND end) OR (? BETWEEN start AND end))', @request.start, @request.end, @request.start, @request.end, @request.start, @request.end)
+    @similar_requests = Request.all.where('billboard_id = ?', @request.billboard_id)
+                               .where('((start BETWEEN ? and ?) OR (end BETWEEN ? and ?)) OR ((? BETWEEN start AND end) OR (? BETWEEN start AND end))', @request.start, @request.end, @request.start, @request.end, @request.start, @request.end)
     @similar_requests.each do |s_r|
       s_r.update(approved?: false)
       s_r.save
@@ -106,5 +106,4 @@ class RequestsController < ApplicationController
   def set_rent_from_request(req)
     req.is_approved? == true
   end
-
 end

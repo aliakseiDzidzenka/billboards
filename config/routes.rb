@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   get '/change_free', to: 'billboards#change_free', as: 'change_free'
   get '/show_booked', to: 'billboards#show_booked', as: 'show_booked'
-  #post '/show_booked', to: 'billboards#show_booked', as: 'show_booked'
+  # post '/show_booked', to: 'billboards#show_booked', as: 'show_booked'
   get '/change_seen', to: 'requests#change_seen', as: 'change_seen'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -24,12 +24,12 @@ Rails.application.routes.draw do
 
   root 'billboards#index'
 
-  resources :users, only: [:index, :show]
+  resources :users, only: %i[index show]
   resources :billboards
   resources :billboards do
     post 'requests', to: 'requests#create'
-    #post 'comments', to: 'comments#create'
-    resources :comments, only: [:create, :destroy]
+    # post 'comments', to: 'comments#create'
+    resources :comments, only: %i[create destroy]
   end
   resources :requests
   resources :requests do
