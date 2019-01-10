@@ -2,14 +2,9 @@
 <meta name='turbolinks-visit-control' content='reload'>
     <script>
 
-
-
     document.addEventListener("DOMContentLoaded", function(){
     	initMap();
     });
-
-
-
 
     function initMap() {
     	var marker;
@@ -61,10 +56,20 @@
     </div>
   </div>
   <div class="row">
-      <div class="col-lg-4">
-        <%= number_field_tag :s, nil, in: 0..25, class: 'form-control', id: 'free-from' %>
+    <div class="col-md-12 free">
+      <%= form_tag("/billboards", method: "get", class: "form-group") do %>
+        <div class="col-md-4 from-control float-left">
+            <%= number_field_tag(:from, nil, in: 0..25, class: "form-control") %>
+        </div>
+        <div class="col-md-4 from-control float-left">
+            <%= number_field_tag(:to, nil, in: 0..25, class: "form-control") %>
+        </div>
+        <div class="col-md-4 float-left">
+            <%= submit_tag(t('index.show_booked'), class: "form-control btn btn-block btn-info") %>
+        </div>
         
-      </div>
+      <% end %>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-12">

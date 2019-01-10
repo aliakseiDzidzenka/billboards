@@ -44,8 +44,10 @@ class RequestsController < ApplicationController
     @request = @billboard.requests.new(request_params)
     @request.user = current_user
     @request.rent = Rent.new
-    @request.save
-    redirect_to root_path
+    if @request.valid?
+      @request.save
+      redirect_to root_path
+    end
   end
 
   def edit

@@ -7,13 +7,18 @@ class BillboardsController < ApplicationController
   before_action :auth_admin, only: [:new, :create]
 
   def index
+    session[:show_booked] = [params[:from].to_i, params[:to].to_i].max
 
   	session[:show_free] |= false
 
-    if session[:show_free]
-      @billboards = Billboard.all.where('id NOT IN (?)', Rent.where(:is_active? == true).where('start <= ?', DateTime.now.beginning_of_day).select(:board_id))
-    else
-      @billboards = Billboard.all
+  	if session[:show_booked] != 0
+  		@billboards = Billboard.all.where('id IN (?)', Rent.select(:board_id).where(:is_active? == true).where('end < ?', Time.now + session[:show_booked].weeks))
+  	else
+      if session[:show_free]
+        @billboards = Billboard.all.where('id NOT IN (?)', Rent.where(:is_active? == true).where('start <= ?', DateTime.now.beginning_of_day).select(:board_id))
+      else
+        @billboards = Billboard.all
+      end
     end
   end
 
@@ -25,14 +30,7 @@ class BillboardsController < ApplicationController
   end
 
   def new
-    #auth_admin
-    # if current_user.admin
     @billboard = Billboard.new
-    # session[:billboard_params] ||= {}
-
-    # else
-    #  redirect_to root_path
-    # end
   end
 
   def create
@@ -64,6 +62,23 @@ class BillboardsController < ApplicationController
     session[:show_free] = !session[:show_free]
     redirect_to billboards_path
   end
+
+  # def show_booked
+  # 	#redirect_to requests_path
+  # 	#session[:from] |= params[:from]
+  # 	x = [params[:from].to_i, params[:to].to_i].max
+
+  # 	session[:show_booked] = x
+  # 	redirect_to billboards_path
+  # 	# if max == 0
+  # 	# 	 = 0
+  # 	# 	redirect_to billboards_path
+  # 	# else
+  # 	# 	session[:show_booked] = max
+  # 	# 	redirect_to billboards_path
+  # 	# end
+
+  # end
   
   private
 
