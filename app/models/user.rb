@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   has_many :billboards
   has_many :requests
+  has_many :comments, dependent: :destroy
   before_create :set_default_avatar
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
