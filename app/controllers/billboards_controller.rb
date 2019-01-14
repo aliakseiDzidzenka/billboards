@@ -2,7 +2,7 @@
 
 class BillboardsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index free change_free cookies]
-  before_action :auth_admin, only: %i[new create]
+  before_action :auth_admin, only: %i[new create edit update]
 
   def index
     session[:show_booked] = [params[:from].to_i, params[:to].to_i].max
@@ -10,10 +10,10 @@ class BillboardsController < ApplicationController
     session[:show_free] |= false
 
     if session[:show_booked] != 0
-      @billboards = Billboard.all.where('id IN (?)', Rent.select(:board_id).where(:is_active? == true).where('end < ?', Time.now + session[:show_booked].weeks))
+      @billboards = Billboard.all.where('id IN (?)', Rent.select(:board_id).where('rents.is_active = ?', true).where('end < ?', Time.now + session[:show_booked].weeks))
     else
       if session[:show_free]
-        @billboards = Billboard.all.where('id NOT IN (?)', Rent.where(:is_active? == true).where('start <= ?', DateTime.now.beginning_of_day).select(:board_id))
+        @billboards = Billboard.all.where('id NOT IN (?)', Rent.where('start < ?', DateTime.now.beginning_of_day).where('rents.is_active = ?', true).select(:board_id))
       else
         @billboards = Billboard.all
       end
@@ -84,7 +84,7 @@ class BillboardsController < ApplicationController
   private
 
   def billboard_params
-    params.require(:billboard).permit(:city, :street, :house, :price, :image, :latitude, :longitude).merge(user_id: current_user.id)
+    params.require(:billboard).permit(:city,  :street, :house, :price, :image, :latitude, :longitude).merge(user_id: current_user.id)
     # user_id: current_user.id
   end
 end

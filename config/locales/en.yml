@@ -34,12 +34,15 @@ en:
     edit: "Edit profile"
     sign_out: "Sign out"
     sign_up: "Sign up"
-    sing_in: "Sign in"
+    sign_in: "Sign in"
   comment:
     delete: "Delete"
   nav:
     requests: "Requests"
   request:
+    no_unseen: "No unseen requests"
+    by_user: "By user"
+    make_rent: "Make rent"
     create:
       login: "You need to sign up / sign in to make a request for rent"
     approve: "Approve"

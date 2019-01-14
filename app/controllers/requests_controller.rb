@@ -2,6 +2,7 @@
 
 class RequestsController < ApplicationController
   before_action :authenticate_user!
+  before_action :auth_admin, except: %i[new create]
   before_action :set_billboard, except: %i[show index edit change_seen]
 
   # @@show_unseen = true
@@ -12,7 +13,7 @@ class RequestsController < ApplicationController
     session[:show_unseen] |= false
 
     @requests = if session[:show_unseen]
-                  Request.all.where(approved?: nil)
+                  Request.all.where(approved: nil)
                 else
                   Request.all
                 end
@@ -63,12 +64,12 @@ class RequestsController < ApplicationController
 
     @similar_requests = Request.all.where('billboard_id = ?', @request.billboard_id)
                                .where('((start BETWEEN ? and ?) OR (end BETWEEN ? and ?)) OR ((? BETWEEN start AND end) OR (? BETWEEN start AND end))', @request.start, @request.end, @request.start, @request.end, @request.start, @request.end)
-    @similar_requests.each do |s_r|
-      s_r.update(approved?: false)
-      s_r.save
+    @similar_requests.each do |request|
+      request.update(approved: false)
+      request.save
     end
 
-    @request.update(approved?: true)
+    @request.update(approved: true)
     @request.rent.save
     @request.save
   end
@@ -103,7 +104,7 @@ class RequestsController < ApplicationController
     redirect_to root_path if current_user.admin == false
   end
 
-  def set_rent_from_request(req)
-    req.is_approved? == true
-  end
+  # def set_rent_from_request(req)
+  #   req.is_approved? == true
+  # end
 end
