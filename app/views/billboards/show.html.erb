@@ -1,0 +1,75 @@
+
+<% provide :head_tags do %>
+<meta name='turbolinks-visit-control' content='reload'>
+    <script>
+    document.addEventListener("DOMContentLoaded", function(){
+        initMap(<%=@billboard.latitude%>, <%=@billboard.longitude%>)
+    });
+
+
+    function initMap(lat, lng) {
+
+    var myCoords = new google.maps.LatLng(lat, lng);
+
+    var mapOptions = {
+    center: myCoords,
+    zoom: 14
+    };
+
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myCoords,
+        map: map
+    });
+
+}
+    </script> 
+<% end %>
+
+
+
+<div id="single-billboard-content" class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="posted-by">Posted by <%= @billboard.user.username %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+        <div id="map" style="max-width: 80%"></div>
+    </div>
+    <div class="col-md-6">
+      <%= image_tag @billboard.image, class: "img-responsive img-show" %>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table table-striped show-table">
+      <th><%= @billboard.city.to_s + ' ' + @billboard.street.to_s + ' ' + @billboard.house.to_s %></th>
+      <th></th>
+      <tr>
+        <td><%= t('billboards.show.price') %></td>
+        <td><%= @billboard.price %></td>
+      </tr>
+    </table>
+  </div>
+</div><!-- row -->
+  <% if current_user %>
+    <%= render '/requests/requests_form' %>
+    <div class="row">
+      <%= form_with model: [@billboard, @comment] do |f| %>
+      <%= f.text_field :body %>
+      <%= f.submit "Comment" %>
+      <% end %>
+    </div>
+  <% else %>
+    <%= link_to t('request.create.login'), new_user_registration_path %>
+  <% end %>
+  <div class="row" id="comment_pane">
+    <% @comments.each do |comment| %>
+      <%= render 'comments/comment', comment: comment %>
+    <% end %>
+  </div>
+
+ 
+</div>

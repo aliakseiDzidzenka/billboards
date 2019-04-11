@@ -1,0 +1,91 @@
+<% provide :head_tags do %>
+<meta name='turbolinks-visit-control' content='reload'>
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function(){
+    	initMap();
+    });
+
+    function initMap() {
+    	var marker;
+    	var newCoord;
+    	var average_lat = 0;
+    	var average_lng = 0;
+    	var count = <%= @billboards.length %>;
+    var myCoords = new google.maps.LatLng(53.9, 27.559);
+    var mapOptions = {
+    center: myCoords,
+    zoom: 14
+    };
+
+    var billboards = <%= @billboards.to_json.html_safe %>;
+
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+
+
+    <% @billboards.each do |billboard| %>
+    	average_lat += <%= billboard.latitude.to_json %>;
+    	average_lng += <%= billboard.longitude.to_json %>;
+    	newCoord = new google.maps.LatLng(<%= billboard.latitude.to_json %>, <%= billboard.longitude.to_json %>);
+
+    	marker = new google.maps.Marker({
+        position: newCoord,
+        map: map
+      });
+    <% end %>
+
+    myCoords = new google.maps.LatLng(average_lat/count, average_lng/count);
+    map.setCenter(myCoords);
+}
+    </script>
+<% end %>
+
+<h1><%= t('billboards.index.results') %></h1>
+<div class="container">
+  <div class="row">
+    <div id="map" class="col-sm-12"></div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+    <% if session[:show_free] === false %>
+      <p><%= button_to t('index.show_free'), change_free_path, method: :get, class: "btn btn_default btn-block index" %></p>
+    <% else %>
+      <p><%= button_to t('index.show_all'), change_free_path, method: :get, class: "btn btn_default btn-block index" %></p>
+    <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 free">
+      <%= form_tag("/billboards", method: "get", class: "form-group") do %>
+        <div class="col-md-4 from-control float-left">
+            <%= number_field_tag(:from, nil, in: 0..25, class: "form-control") %>
+        </div>
+        <div class="col-md-4 from-control float-left">
+            <%= number_field_tag(:to, nil, in: 0..25, class: "form-control") %>
+        </div>
+        <div class="col-md-4 float-left">
+            <%= submit_tag(t('index.show_booked'), class: "form-control btn btn-block btn-info") %>
+        </div>
+        
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <% @billboards.each do |billboard| %>
+        <div class="col-sm-4 float-left card" id=<%= billboard_path(billboard.id) %> style="padding: 1em;">
+          <div class="card-header"><%= billboard.street %>, <%= billboard.house %></div>
+          <p class="text-danger"><%= billboard.price %></p>
+          <%= link_to t('billboards.more'), billboard_path(billboard.id), class: "btn btn_info" %>
+          <% if current_user && current_user.admin? %>
+            <%= link_to t('billboards.edit.title'), edit_billboard_path(billboard.id) %>
+          <% end %>
+        </div><!-- col-sm-4 -->
+      <% end %>
+    </div>
+  </div>
+
+
+  </div>
+</div>

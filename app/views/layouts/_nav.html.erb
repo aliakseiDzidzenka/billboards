@@ -1,8 +1,16 @@
 <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#"><%= t('header.title') %></a>
+  <%= link_to t('header.title'), root_path, class: "navbar-brand" %>
+        <% if current_user && current_user.admin %>
+        <%= link_to t('nav.requests'), requests_path, class: 'btn btn-md btn-info'  %>
+      <% end %>
   <div class="btn-group" role="group" aria-label="Log in / sign up">
-  	<%= link_to "Log in", '#', class: "btn btn-md btn-secondary" %>
-  	<%= link_to "Sign up", signup_path, class: "btn btn-md btn-secondary" %>
+  	<% if current_user  %>
+      <%= link_to image_tag(current_user.avatar, class: "nav-img"), user_path(current_user) %>
+  		<%= link_to t('user.sign_out'), destroy_user_session_path, method: :delete, class: "btn btn-md btn-secondary" %>
+  	<% else %>
+  	  <%= link_to t('user.sign_in'), new_user_session_path, class: "btn btn-md btn-secondary" %>
+  		<%= link_to t('user.sign_up'), new_user_registration_path, class: "btn btn-md btn-secondary" %>
+  	<% end %>
 	</div>
   
 

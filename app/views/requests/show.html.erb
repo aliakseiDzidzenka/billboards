@@ -1,0 +1,17 @@
+<h3><%= @request.brand %></h3>
+	<p><%= @request.description %></p>
+	<p><%= @request.ad_type %></p>
+	<p><%= @request.start %></p>
+	<p><%= @request.end %></p>
+	<p><%= @request.approved %></p>
+	<p><%= @request.user_id %></p>
+	<p><%= @request.billboard_id %></p>
+
+<% if @request.rent == nil  %>
+  <%= 'no rent' %>
+<% else %>
+  <%= t('request.by_user')  %>
+  <%= @request.user_id %> 
+
+  <%= link_to t('request.make_rent'), edit_request_path(@request.id) %>
+<% end %>

@@ -1,0 +1,12 @@
+
+<% if session[:show_unseen] %>
+  <p><%= button_to "show_all", change_seen_path, method: :get %></p>
+<% else %>
+  <p><%= button_to "show_unseen", change_seen_path, method: :get %></p>
+<% end %>
+
+
+<%= render 'show_div' %>
+
+
+	

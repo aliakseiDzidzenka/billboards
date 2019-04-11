@@ -30,8 +30,48 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  user:
+    edit: "Edit profile"
+    sign_out: "Sign out"
+    sign_up: "Sign up"
+    sign_in: "Sign in"
+  comment:
+    delete: "Delete"
+  nav:
+    requests: "Requests"
+  request:
+    no_unseen: "No unseen requests"
+    by_user: "By user"
+    make_rent: "Make rent"
+    create:
+      login: "You need to sign up / sign in to make a request for rent"
+    approve: "Approve"
+    show: "Show more"
   index:
-    page_title: 'Home'
+    page_title: "Billboards"
+    show_all: "Show all"
+    show_free: "Show free"
+    show_booked: "Show booked"
   header:
     title: "Billboards"
+  form:
+    submit: "submit"
+  billboards:
+    index:
+      results: "Search results"
+    new:
+      title: "Create new billboard"
+    edit:
+      title: "Edit billboard"
+    more: "More"
+    form:
+      latitude: "latitude"
+      longitude: "longitude"
+      city: "city"
+      street: "street"
+      house: "house"
+      price: "price"
+      image: "image"
+    show:
+      price: "Price"
+
